@@ -6,7 +6,7 @@ sealed trait ModelException extends Exception {
   def message: String
 }
 case class UserExistsException(message: String = "User already exists.") extends ModelException
-case class NoSuchUserException(message: String = "No such user exception.") extends ModelException
+case class NoSuchUserException(message: String = "No such user.") extends ModelException
 case class InsufficientFundsException(message: String = "Insufficient funds.") extends ModelException
 
 class Model {
