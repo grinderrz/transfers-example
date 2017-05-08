@@ -1,8 +1,8 @@
 package transfers
 
-import org.scalatest.{ WordSpec, Matchers, ParallelTestExecution }
+import org.scalatest.{ WordSpec, Matchers }
 
-class ModelParallelSpec extends WordSpec with Matchers with ParallelTestExecution {
+class ModelParallelSpec extends WordSpec with Matchers {
   "Model" should {
     val model = new Model
     model.addUser(1L)
