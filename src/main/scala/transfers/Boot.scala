@@ -9,6 +9,7 @@ import akka.stream.ActorMaterializer
 import scala.io.StdIn
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import spray.json.DefaultJsonProtocol._
+import com.typesafe.config.ConfigFactory
 
 object Route {
   val model = new Model
@@ -60,11 +61,15 @@ object Route {
 }
 
 object Boot extends App {
+  private val config = ConfigFactory.load()
   implicit val system = ActorSystem("TransfersSystem")
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
 
-  val bindingFuture = Http().bindAndHandle(Route.route, "localhost", 8080)
+  val port = config.getInt("boot.port")
+  val interface = config.getString("boot.interface")
+
+  val bindingFuture = Http().bindAndHandle(Route.route, interface, port)
 
   StdIn.readLine()
     bindingFuture
